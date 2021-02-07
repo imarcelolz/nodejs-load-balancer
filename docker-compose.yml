@@ -1,0 +1,49 @@
+version: '2'
+services:
+  # lb:
+  #   image: haproxy:2.3
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #     - 8404:8404
+
+  #   volumes:
+  #     - ./haproxy:/usr/local/etc/haproxy:cached
+
+  lb-node:
+    image: node:14-alpine
+    entrypoint: ['node', 'app/proxy.js']
+    volumes:
+      - ./:/app
+    ports:
+      - 80:80
+
+  web1:
+    image: strm/helloworld-http
+
+  web2:
+    image: strm/helloworld-http
+
+  web3:
+    image: strm/helloworld-http
+
+  web4:
+    image: strm/helloworld-http
+
+  web5:
+    image: strm/helloworld-http
+
+  # web:
+  #   deploy:
+  #     replicas: 5
+  #     endpoint_mode: dnsrr
+  #   image: strm/helloworld-http
+
+  # web-node:
+  #   # deploy:
+  #   #   replicas: 3
+  #   #   endpoint_mode: dnsrr
+  #   image: node:14-alpine
+  #   entrypoint: ['node', 'app/server.js']
+  #   volumes:
+  #     - ./:/app
